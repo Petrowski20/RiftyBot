@@ -11,8 +11,13 @@ logging.basicConfig(
 )
 
 # Variables del bot y Google Sheets
-TOKEN_BOT = '7695366938:AAFdpSLDXMom1fgXg3UGWnuX-h4w958MpXI'
-SHEET_ID = '1meJnfziPVE_WeS4fXA_Af434ttWmCI7uCWhjFIRv7Kc'
+from dotenv import load_dotenv # type: ignore
+import os
+
+load_dotenv()
+TOKEN_BOT = os.getenv('TOKEN_BOT')
+SHEET_ID = os.getenv('SHEET_ID')
+
 
 # Conectar con Google Sheets
 gc = gspread.service_account(filename='credentials.json')
