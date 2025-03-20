@@ -10,17 +10,16 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-# Variables del bot y Google Sheets
-from dotenv import load_dotenv # type: ignore
 import os
 
-load_dotenv()
-TOKEN_BOT = os.getenv('TOKEN_BOT')
-SHEET_ID = os.getenv('SHEET_ID')
-
-
 # Conectar con Google Sheets
-gc = gspread.service_account(filename='credentials.json')
+import json
+import base64
+
+creds_json = base64.b64decode(os.getenv("GOOGLE_CREDENTIALS")).decode("utf-8")
+creds_dict = json.loads(creds_json)
+
+gc = gspread.service_account_from_dict(creds_dict)
 spreadsheet = gc.open_by_key(SHEET_ID)
 hoja = spreadsheet.worksheet('CalendarioLEC25')
 
